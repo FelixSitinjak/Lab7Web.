@@ -230,3 +230,111 @@ Dalam kode di dunia nyata (produksi), hal ini biasanya ditangani dengan `isset()
         echo 'Selamat Datang ' . $_POST['nama'];
     }
 ?>
+```
+**Buatlah program PHP sederhana dengan menggunakan form input yang menampilkan 
+nama, tanggal lahir dan pekerjaan. Kemudian tampilkan outputnya dengan menghitung 
+umur berdasarkan inputan tanggal lahir. Dan pilihan pekerjaan dengan gaji yang 
+berbeda-beda sesuai pilihan pekerjaan**
+
+<img width="959" height="500" alt="image" src="https://github.com/user-attachments/assets/d049c5a8-e096-4aaa-84f8-08dc9677df14" />
+
+**Codingan**
+```
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Data dan Gaji</title>
+</head>
+<body>
+    <h2>Form Input Data</h2>
+    <form method="post">
+        <label>Nama: </label>
+        <input type="text" name="nama" required><br><br>
+
+        <label>Tanggal Lahir: </label>
+        <input type="date" name="tanggal_lahir" required><br><br>
+
+        <label>Pekerjaan: </label>
+        <select name="pekerjaan" required>
+            <option value="">-- Pilih Pekerjaan --</option>
+            <option value="Programmer">Programmer</option>
+            <option value="Desainer">Desainer</option>
+            <option value="Guru">Guru</option>
+            <option value="Dokter">Dokter</option>
+            <option value="Pegawai">Pegawai Kantoran</option>
+        </select><br><br>
+
+        <input type="submit" value="Tampilkan">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nama = $_POST['nama'];
+        $tanggal_lahir = $_POST['tanggal_lahir'];
+        $pekerjaan = $_POST['pekerjaan'];
+
+        // Hitung umur
+        $lahir = new DateTime($tanggal_lahir);
+        $hari_ini = new DateTime();
+        $umur = $hari_ini->diff($lahir)->y;
+
+        // Tentukan gaji berdasarkan pekerjaan
+        switch ($pekerjaan) {
+            case "Programmer":
+                $gaji = 10000000;
+                break;
+            case "Desainer":
+                $gaji = 8000000;
+                break;
+            case "Guru":
+                $gaji = 7000000;
+                break;
+            case "Dokter":
+                $gaji = 15000000;
+                break;
+            case "Pegawai":
+                $gaji = 9000000;
+                break;
+            default:
+                $gaji = 0;
+        }
+
+        // Tampilkan hasil
+        echo "<h3>Hasil Data:</h3>";
+        echo "Nama: <strong>$nama</strong><br>";
+        echo "Tanggal Lahir: <strong>$tanggal_lahir</strong><br>";
+        echo "Umur: <strong>$umur tahun</strong><br>";
+        echo "Pekerjaan: <strong>$pekerjaan</strong><br>";
+        echo "Gaji: <strong>Rp " . number_format($gaji, 0, ',', '.') . "</strong><br>";
+    }
+    ?>
+</body>
+</html>
+```
+**Penjelasan**
+# Latihan PHP - Form Input Data Diri
+
+Proyek ini merupakan latihan dasar pemrograman PHP yang menampilkan **form input sederhana** untuk memasukkan:
+- Nama
+- Tanggal Lahir
+- Pekerjaan
+
+Setelah data dikirim, sistem akan menghitung **umur otomatis berdasarkan tanggal lahir**, dan menampilkan **gaji sesuai pilihan pekerjaan**.
+
+---
+
+## Cara Menjalankan
+
+1. Pastikan kamu sudah menginstal **XAMPP**
+2. Simpan file `latihan.php` di dalam folder:
+
+
+---
+
+## Fitur Program
+
+- Input nama, tanggal lahir, dan pekerjaan
+- Hitung umur otomatis dari tanggal lahir
+- Tampilkan gaji berdasarkan pekerjaan
+- Tampilan sederhana berbasis HTML + PHP
